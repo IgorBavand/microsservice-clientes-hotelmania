@@ -54,7 +54,7 @@ public class ClienteService {
         Optional<Cliente> cliente = clienteRepository.findById(id);
 
         if(!cliente.isPresent()){
-            throw new NotFoundException("CLiente nao encontrado");
+            throw new NotFoundException("Cliente nao encontrado");
         }
 
         if(clienteForm.getCepCliente() == null){
