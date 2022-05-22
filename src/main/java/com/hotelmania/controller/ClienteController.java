@@ -56,6 +56,12 @@ public class ClienteController {
         return ResponseEntity.ok().body(clienteService.alterarCliente(clienteForm, id));
     }
 
+    @ApiOperation(httpMethod = "DELETE", value = "Deleta um cliente", response = ClienteDto.class)
+    @DeleteMapping("/deletar-cliente/{id}")
+    public ResponseEntity<ClienteDto> deletarCliente(@PathVariable UUID id) throws NotFoundException {
+        return ResponseEntity.ok().body(clienteService.excluirCliente(id));
+    }
+
 }
 
 

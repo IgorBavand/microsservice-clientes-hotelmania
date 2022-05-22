@@ -9,6 +9,7 @@ import com.hotelmania.service.dto.ClienteDto;
 import com.hotelmania.service.filter.ClienteFilter;
 import com.hotelmania.service.form.ClienteForm;
 import com.hotelmania.service.mapper.ClienteMapper;
+import feign.Client;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -91,6 +92,17 @@ public class ClienteService {
         log.info("alterando cliente");
         return clienteMapper.toDto(clienteSalvo);
 
+    }
+
+    public ClienteDto excluirCliente(UUID id){
+        log.info("buscando cliente para exclusão...");
+        Optional<Cliente> cliente = clienteRepository.findById(id);
+        if(cliente.isEmpty()){
+            throw new NotFoundException("Nenhum cliente encontrado, verifique o id.");
+        }
+        clienteRepository.delete(cliente.get());
+        log.info("cliente excluído...");
+        return clienteMapper.toDto(cliente.get());
     }
 }
 
